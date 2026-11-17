@@ -1,0 +1,24 @@
+/* Decorative, dependency-free ocean for the existing hero. */
+.hero { background: #03242e; }
+.hero::before { z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(1,15,22,.92),rgba(1,19,28,.65) 40%,transparent 78%),linear-gradient(0deg,#090909,transparent 25%); }
+.hero > .container { position: relative; z-index: 2; }
+.jelly-ocean { position:absolute; inset:0; overflow:hidden; pointer-events:none; background:radial-gradient(ellipse at 77% 25%,rgba(38,163,182,.18),transparent 55%),radial-gradient(ellipse at 90% 80%,rgba(233,105,128,.09),transparent 45%),linear-gradient(135deg,#031821,#063540 65%,#031b28); }
+.jelly-ocean::before { content:"";position:absolute;inset:0;opacity:.3;background-image:radial-gradient(circle,#a2e7e9 1px,transparent 1.5px),radial-gradient(circle,#78bbc5 .7px,transparent 1px);background-size:137px 173px,89px 127px;background-position:20px 40px,70px 20px; }
+.jelly { position:absolute;width:clamp(130px,19vw,290px);opacity:.85; transform:rotate(var(--angle,12deg)); }
+.jelly-0 { left:64%;top:12%;--angle:17deg; }
+.jelly-1 { left:83%;top:43%;width:clamp(100px,13vw,200px);--angle:-13deg;opacity:.6; }
+.jelly-2 { left:48%;top:56%;width:clamp(90px,11vw,165px);--angle:24deg;opacity:.45; }
+.jelly-3 { left:90%;top:-10%;width:clamp(80px,10vw,150px);--angle:8deg;opacity:.4; }
+.jelly-4 { left:40%;top:4%;width:clamp(65px,8vw,115px);--angle:-20deg;opacity:.3; }
+.jelly svg { display:block;width:100%;height:auto;overflow:visible; }
+.jelly-swim { animation:jelly-propel var(--beat) infinite;animation-delay:var(--phase); }
+.jelly-bell { transform-origin:105px 113px;animation:jelly-pulse var(--beat) infinite;animation-delay:var(--phase); }
+.jelly-tentacle { transform-origin:105px 113px; animation:jelly-trail var(--beat) infinite;animation-delay:calc(var(--phase) + var(--lag)); }
+.jelly-tip { animation:jelly-tip var(--beat) infinite;animation-delay:calc(var(--phase) + var(--lag) + .25s); }
+@keyframes jelly-pulse { 0%,100% {transform:scale(1,1);animation-timing-function:cubic-bezier(.3,0,.8,.3);} 16% {transform:scale(.76,.68);animation-timing-function:cubic-bezier(.1,.5,.25,1);} 85% {transform:scale(1,1);} }
+@keyframes jelly-propel { 0%,100% {transform:translate(0,0);animation-timing-function:cubic-bezier(.2,.65,.3,1);} 22% {transform:translate(7px,-35px);animation-timing-function:cubic-bezier(.25,0,.6,1);} 86% {transform:translate(-3px,3px);} }
+@keyframes jelly-trail { 0%,100% {transform:rotate(-3deg) scaleY(1);} 28% {transform:rotate(5deg) scaleY(1.08);} 70% {transform:rotate(-5deg) scaleY(.96);} }
+@keyframes jelly-tip { 0%,100% {transform:rotate(5deg);} 38% {transform:rotate(-11deg);} 78% {transform:rotate(8deg);} }
+.jelly-ocean.is-paused * {animation-play-state:paused;}
+@media(max-width:720px) { .jelly-0 {left:51%;top:13%;width:210px;opacity:.65;} .jelly-1 {left:78%;top:59%;width:125px;} .jelly-2 {left:36%;top:65%;width:110px;} .jelly-3,.jelly-4 {display:none;} .hero::before {background:linear-gradient(90deg,rgba(1,15,22,.87),rgba(1,19,28,.45)),linear-gradient(0deg,#090909,transparent 30%);} }
+@media(prefers-reduced-motion:reduce) { .jelly-ocean * {animation:none !important;} }
