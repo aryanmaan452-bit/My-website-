@@ -1,6 +1,6 @@
 (() => {
-  const footer = document.querySelector('.site-footer');
-  const mascot = footer?.querySelector('.footer-mascot');
+  document.querySelectorAll('.mascot-stage').forEach(stage => {
+  const mascot = stage.querySelector('.footer-mascot');
   if (!mascot) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
@@ -21,11 +21,12 @@
     if (!frame) frame = requestAnimationFrame(update);
   }, {passive: true});
   document.documentElement.addEventListener('pointerleave', reset);
-  const sync = () => { footer.classList.toggle('mascot-paused', !visible || document.hidden || reduced.matches); reset(); };
+  const sync = () => { stage.classList.toggle('mascot-paused', !visible || document.hidden || reduced.matches); reset(); };
   const observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); });
   observer.observe(mascot);
   document.addEventListener('visibilitychange', sync);
   reduced.addEventListener('change', sync);
   fine.addEventListener('change', reset);
   sync();
+  });
 })();
